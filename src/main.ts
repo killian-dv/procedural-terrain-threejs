@@ -13,7 +13,14 @@ import "./style.css";
  */
 // Debug
 const gui = new GUI({ width: 325 });
-const debugObject = {};
+const debugObject = {
+  colorWaterDeep: "#002b3d",
+  colorWaterSurface: "#66a8ff",
+  colorSand: "#ffe894",
+  colorGrass: "#85d534",
+  colorSnow: "#ffffff",
+  colorRock: "#bfbd8d",
+};
 
 // Canvas
 const canvas = document.querySelector<HTMLCanvasElement>("canvas.webgl");
@@ -50,6 +57,16 @@ const uniforms = {
   uStrength: new THREE.Uniform(2.0),
   uWarpFrequency: new THREE.Uniform(5.0),
   uWarpStrength: new THREE.Uniform(0.5),
+  uColorWaterDeep: new THREE.Uniform(
+    new THREE.Color(debugObject.colorWaterDeep),
+  ),
+  uColorWaterSurface: new THREE.Uniform(
+    new THREE.Color(debugObject.colorWaterSurface),
+  ),
+  uColorSand: new THREE.Uniform(new THREE.Color(debugObject.colorSand)),
+  uColorGrass: new THREE.Uniform(new THREE.Color(debugObject.colorGrass)),
+  uColorSnow: new THREE.Uniform(new THREE.Color(debugObject.colorSnow)),
+  uColorRock: new THREE.Uniform(new THREE.Color(debugObject.colorRock)),
 };
 
 gui
@@ -76,6 +93,43 @@ gui
   .max(1)
   .step(0.001)
   .name("Warp Strength");
+
+gui
+  .addColor(debugObject, "colorWaterDeep")
+  .name("Color Water Deep")
+  .onChange(() => {
+    uniforms.uColorWaterDeep.value.set(debugObject.colorWaterDeep);
+  });
+gui
+  .addColor(debugObject, "colorWaterSurface")
+  .name("Color Water Surface")
+  .onChange(() => {
+    uniforms.uColorWaterSurface.value.set(debugObject.colorWaterSurface);
+  });
+gui
+  .addColor(debugObject, "colorSand")
+  .name("Color Sand")
+  .onChange(() => {
+    uniforms.uColorSand.value.set(debugObject.colorSand);
+  });
+gui
+  .addColor(debugObject, "colorGrass")
+  .name("Color Grass")
+  .onChange(() => {
+    uniforms.uColorGrass.value.set(debugObject.colorGrass);
+  });
+gui
+  .addColor(debugObject, "colorSnow")
+  .name("Color Snow")
+  .onChange(() => {
+    uniforms.uColorSnow.value.set(debugObject.colorSnow);
+  });
+gui
+  .addColor(debugObject, "colorRock")
+  .name("Color Rock")
+  .onChange(() => {
+    uniforms.uColorRock.value.set(debugObject.colorRock);
+  });
 
 const material = new CustomShaderMaterial({
   baseMaterial: THREE.MeshStandardMaterial,
