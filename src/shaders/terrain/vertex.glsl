@@ -11,6 +11,9 @@ float getElevation(vec2 position) {
     amplitude *= 2.0;
   }
 
+float elevationSign = sign(elevation);
+  elevation = pow(abs(elevation), 2.0) * elevationSign;
+
   return elevation;
 }
 
