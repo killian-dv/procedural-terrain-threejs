@@ -42,8 +42,6 @@ rgbeLoader.load("/spruit_sunrise.hdr", (environmentMap) => {
  * Terrain
  */
 const geometry = new THREE.PlaneGeometry(10, 10, 500, 500);
-geometry.deleteAttribute("normal");
-geometry.deleteAttribute("uv");
 geometry.rotateX(-Math.PI / 2);
 
 const uniforms = {
@@ -89,7 +87,15 @@ const material = new CustomShaderMaterial({
   color: "#85d534",
 });
 
+const depthMaterial = new CustomShaderMaterial({
+  baseMaterial: THREE.MeshDepthMaterial,
+  vertexShader: terrainVertexShader,
+  uniforms: uniforms,
+  depthPacking: THREE.RGBADepthPacking,
+});
+
 const terrain = new THREE.Mesh(geometry, material);
+terrain.customDepthMaterial = depthMaterial;
 terrain.castShadow = true;
 terrain.receiveShadow = true;
 scene.add(terrain);
