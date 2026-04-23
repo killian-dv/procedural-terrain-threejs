@@ -155,6 +155,21 @@ terrain.receiveShadow = true;
 scene.add(terrain);
 
 /**
+ * Water
+ */
+
+const water = new THREE.Mesh(
+  new THREE.PlaneGeometry(10, 10, 1, 1),
+  new THREE.MeshPhysicalMaterial({
+    transmission: 1,
+    roughness: 0.3,
+  }),
+);
+water.rotation.x = -Math.PI / 2;
+water.position.y = -0.01;
+scene.add(water);
+
+/**
  * Board
  */
 const boardFill = new Brush(new THREE.BoxGeometry(11, 2, 11));
