@@ -47,6 +47,7 @@ geometry.deleteAttribute("uv");
 geometry.rotateX(-Math.PI / 2);
 
 const uniforms = {
+  uTime: new THREE.Uniform(0),
   uPositionFrequency: new THREE.Uniform(0.2),
   uStrength: new THREE.Uniform(2.0),
   uWarpFrequency: new THREE.Uniform(5.0),
@@ -189,6 +190,8 @@ const clock = new THREE.Clock();
 
 const tick = () => {
   const elapsedTime = clock.getElapsedTime();
+
+  uniforms.uTime.value = elapsedTime;
 
   // Update controls
   controls.update();
